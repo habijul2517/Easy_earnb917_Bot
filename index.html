@@ -3,147 +3,11 @@
 <head>
   <title>Easy_earnb 💸</title>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewportcontent="width=device-width, initial-scale=1.0">
 
-  <!-- Telegram SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <!-- Monetag SDK -->
-      <script src='//libtl.com/sdk.js' data-zone='9589977' data-sdk='show_9589977'></script>
-
-<style>
+  <!-- 
   body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #23435c;
-    color: white;
-    padding: 15px;
-  }
-
-  .container {
-    max-width: 500px;
-    margin: auto;
-  }
-
-  .card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    transition: transform 0.2s ease;
-  }
-
-  .card:hover {
-    transform: scale(1.01);
-  }
-
-  h2, h3 {
-    margin-top: 0;
-    font-weight: 600;
-    font-size: 20px;
-  }
-
-  h2 span {
-    color: #d9c80f;
-  }
-
-  .btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 12px;
-    transition: all 0.3s ease;
-  }
-
-  .btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-
-  .btn:active {
-    transform: scale(0.97);
-  }
-
-  .btn-green {
-    background: linear-gradient(90deg, #1300e6, #0d00c8);
-    color: black;
-  }
-
-  .btn-blue {
-    background: linear-gradient(90deg, #448aff, #2979ff);
-    color: white;
-  }
-
-  .btn-orange {
-    background: linear-gradient(90deg, #ff9100, #ff6d00);
-    color: white;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 12px;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-  }
-
-  input::placeholder {
-    color: #bbb;
-  }
-
-  .emoji-title {
-    font-size: 24px;
-    margin-bottom: 5px;
-  }
-</style>
-
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h2>👋 Welcome <span id="userId">User</span></h2>
-      <p>💰 Balance: <span id="balance">0.00</span> ৳</p>
-    </div>
-
-    <div class="card">
-      <h3>🎬 Watch Ad & Earn</h3>
-      <p>➤ 0.25৳ per ad (16s), every 9th ad requires 2 minutes</p>
-      <p>➤ 20 ads every 40 minutes</p>
-      <button class="btn" onclick="watchAd()">▶️ Watch Ad</button>
-    </div>
-
-    <div class="card">
-      <h3>🌍 Visit Site & Earn</h3>
-      <p>➤ 0.5৳ per visit (1 minute)</p>
-      <button class="btn-blue" onclick="visitWebsite()">🌐 Visit Website</button>
-    </div>
-
-    <div class="card">
-      <h3>📤 Withdraw</h3>
-      <p>Minimum 300৳ required</p>
-      <input type="number" id="withdrawAmount" placeholder="Amount to withdraw" />
-      <select id="method">
-        <option value="Bkash">Bkash</option>
-        <option value="Nagad">Nagad</option>
-      </select>
-      <input type="text" id="wdNumber" placeholder="Your Bkash/Nagad Number" />
-      <button class="btn-orange" onclick="requestWithdraw()">🚀 Request Withdraw</button>
-    </div>
-
-    <div class="card">
-      <h3>🔗 Your Referral Link প্রতি রেফার ১০টাকা</h3>
-      <input type="text" id="refLink" readonly />
-      <button class="btn-blue" onclick="copyRef()">📋 Copy Referral Link</button>
-    </div>
+    
 
     <div class="card">
       <h3>📊 Stats</h3>
@@ -217,7 +81,7 @@
   });
 
   function updateUI() {
-    $("balance").innerText = userData.balance.toFixed(2);
+    lance").innerText = userData.balance.toFixed(2);
     $("adsToday").innerText = userData.adsWatchedToday;
     $("refCommission").innerText = userData.refCommission.toFixed(2);
     $("totalAds").innerText = userData.totalAds;
