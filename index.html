@@ -1,218 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Easy_earnb 💸</title>
-  <meta charset="UTF-8">
-  <meta name="viewportcontent="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 
-  body {
-    
+<title>Mining Reward System</title>
 
-    <div class="card">
-      <h3>📊 Stats</h3>
-      <p>🎯 Ads Watched Today: <span id="adsToday">0</span></p>
-      <p>👥 Referral Commission: <span id="refCommission">0.00</span> ৳</p>
-      <p>🌐 Total Ads Watched: <span id="totalAds">0</span></p>
-      <button class="btn-blue" onclick="showDetails()">📖 Show Details</button>
-    </div>
-  </div>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src='//libtl.com/sdk.js' data-zone='9589977' data-sdk='show_9589977'></script>
+<script src="https://adexora.com/cdn/ads.js?id=467"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:400px;
+margin:auto;
+background:#1e293b;
+padding:25px;
+border-radius:10px;
+}
+
+h1{
+color:#38bdf8;
+}
+
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:white;
+cursor:pointer;
+margin-top:15px;
+}
+
+button:disabled{
+background:gray;
+}
+
+.progress{
+margin-top:20px;
+font-size:18px;
+}
+
+.timer{
+font-size:30px;
+margin-top:15px;
+color:#facc15;
+}
+
+.code{
+background:black;
+padding:15px;
+border-radius:10px;
+font-size:22px;
+margin-top:20px;
+color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 Mining Ads Reward</h1>
+
+<p>Watch 10 Ads To Unlock Reward</p>
+
+<div class="progress">
+Ads Watched: <span id="count">0</span>/10
+</div>
+
+<div class="timer" id="timer">
+Ready
+</div>
+
+<button id="watchBtn" onclick="watchAd()">Watch Ad</button>
+
+<div id="reward"></div>
+
+</div>
 
 <script>
-  const $ = id => document.getElementById(id);
-  const tg = window.Telegram.WebApp;
-  const userId = tg.initDataUnsafe?.user?.id?.toString() || "guest";
-  $("userId").innerText = userId;
 
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyClPpKTXIhPPcwxNhUMLjdbUVILsPCVvlc",
-    authDomain: "habijul-620aa.firebaseapp.com",
-    databaseURL: "https://habijul-620aa-default-rtdb.firebaseio.com",
-    projectId: "habijul-620aa",
-    appId: "1:86834522001:android:f078be11035d934b8f9c30"
-  };
+let adCount = 0;
+let timer = 0;
+let interval;
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-  const userRef = db.ref("users/" + userId);
+function watchAd(){
 
-  const today = new Date().toISOString().split("T")[0];
-  const REWARDS = { ad: 0.25, ref: 10.025, visit: 0.15 };
-  const LIMITS = { session: 20, cooldownMs: 40 * 60 * 1000 };
-  const referrerId = new URLSearchParams(window.location.search).get("ref");
-
-  let userData = {
-    balance: 0,
-    refCommission: 0,
-    adsWatchedToday: 0,
-    totalAds: 0,
-    cooldownUntil: 0,
-    lastAdDate: today
-  };
-
-  // Initial load from Firebase
-  userRef.once("value").then(snapshot => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      userData = { ...userData, ...data };
-
-      // Reset ad count if new day
-      if (userData.lastAdDate !== today) {
-        userData.adsWatchedToday = 0;
-        userData.cooldownUntil = 0;
-        userData.lastAdDate = today;
-        userRef.update({
-          adsWatchedToday: 0,
-          cooldownUntil: 0,
-          lastAdDate: today
-        });
-      }
-    } else {
-      userRef.set(userData);
-    }
-
-    updateUI();
-  });
-
-  function updateUI() {
-    lance").innerText = userData.balance.toFixed(2);
-    $("adsToday").innerText = userData.adsWatchedToday;
-    $("refCommission").innerText = userData.refCommission.toFixed(2);
-    $("totalAds").innerText = userData.totalAds;
-    $("refLink").value = `https://t.me/Easy_earnb917_Bot?start=${userId}`;
-  }
-
-  function watchAd() {
-  const now = Date.now();
-
-  // 🔁 Firebase থেকে নতুন cooldownUntil নিয়ে আসি
-  userRef.once("value").then(snapshot => {
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      userData.cooldownUntil = data.cooldownUntil || 0;
-    }
-
-    if (userData.cooldownUntil && now < userData.cooldownUntil) {
-      const minsLeft = Math.ceil((userData.cooldownUntil - now) / 60000);
-      return alert(`⏳ Please wait ${minsLeft} minutes before next session.`);
-    }
-
-    if (typeof show_9589977 !== "function") {
-      return alert("⚠️ Ad not loaded yet.");
-    }
-
-    if (userData.adsWatchedToday && userData.adsWatchedToday % LIMITS.session === 0) {
-      userData.cooldownUntil = now + LIMITS.cooldownMs;
-      userRef.update({ cooldownUntil: userData.cooldownUntil });
-      return alert("🔁 Session ended. Wait 40 minutes.");
-    }
-
-    show_9589977();
-
-    const isLongAd = userData.adsWatchedToday % 9 === 8;
-    const delay = isLongAd ? 45000 : 16000;
-    if (isLongAd) alert("⏳ Please watch this ad for 0.45 minutes.");
-
-    setTimeout(() => {
-      userData.balance += REWARDS.ad;
-      userData.adsWatchedToday++;
-      userData.totalAds++;
-
-      const updates = {
-        balance: userData.balance,
-        adsWatchedToday: userData.adsWatchedToday,
-        totalAds: userData.totalAds
-      };
-
-      userRef.update(updates);
-      updateUI();
-
-      if (referrerId && referrerId !== userId) {
-        const refUser = db.ref("users/" + referrerId);
-        refUser.once("value").then(snap => {
-          if (snap.exists()) {
-            const refData = snap.val();
-            const newRefBal = (refData.balance || 0) + REWARDS.ref;
-            const newRefCom = (refData.refCommission || 0) + REWARDS.ref;
-            refUser.update({
-              balance: newRefBal,
-              refCommission: newRefCom
-            });
-          }
-        });
-      }
-
-      alert(`✅ You earned 0.25৳ (Ad ${userData.adsWatchedToday})`);
-    }, delay);
-  });
+if(adCount >= 10){
+return;
 }
 
+let watchTime = 18;
 
-  function visitWebsite() {
-    window.open("https://otieu.com/4/9578063", "_blank");
-    setTimeout(() => {
-      userData.balance += REWARDS.visit;
-      userRef.update({ balance: userData.balance });
-      updateUI();
-      alert("✅ You earned 0.5৳ for visiting.");
-    }, 60000);
-  }
-function requestWithdraw() {
-  const amount = +$("withdrawAmount").value.trim();
-  const number = $("wdNumber").value.trim();
-  const method = $("method").value;
-
-  if (!amount || amount < 110) return alert("❌ Minimum withdraw is 110৳");
-  if (userData.balance < amount) return alert("❌ Insufficient balance.");
-  if (!number) return alert("❌ Enter your number.");
-
-  // 👉 রেফারেল সংখ্যা চেক করো
-  db.ref("referrals/" + userId).once("value").then(refSnap => {
-    const refCount = refSnap.exists() ? Object.keys(refSnap.val()).length : 0;
-
-    if (refCount < 5) {
-      return alert("❌ You need at least 5 referrals to withdraw.");
-    }
-
-    // ✅ রেফার সংখ্যা ঠিক থাকলে উইথড্রো প্রসেস করো
-    userData.balance -= amount;
-    userRef.update({ balance: userData.balance });
-    updateUI();
-
-    const withdrawRef = db.ref("withdraw_requests").push();
-    withdrawRef.set({
-      userId,
-      amount,
-      method,
-      number,
-      timestamp: Date.now()
-    });
-
-    alert(`✅ Withdraw request of ${amount}৳ sent to ${method}: ${number}`);
-  });
+if(adCount == 8){
+watchTime = 40;
 }
 
-  
+timer = watchTime;
 
-  function copyRef() {
-    const input = $("refLink");
-    input.select();
-    input.setSelectionRange(0, 99999);
-    navigator.
-clipboard.writeText(input.value);
-    alert("✅ Referral link copied!");
-  }
+document.getElementById("watchBtn").disabled = true;
 
-  function showDetails() {
-    alert(`📅 Ads Today: ${userData.adsWatchedToday}\n👥 Referral Earnings: ${userData.refCommission.toFixed(2)} ৳\n🌐 Total Ads: ${userData.totalAds}`);
-  }
+interval = setInterval(()=>{
+
+document.getElementById("timer").innerText = "Wait: " + timer + "s";
+
+timer--;
+
+if(timer < 0){
+
+clearInterval(interval);
+
+showAd();
+
+}
+
+},1000);
+
+}
+
+function showAd(){
+
+window.showAdexora()
+.then(()=>{
+
+adCount++;
+
+document.getElementById("count").innerText = adCount;
+
+document.getElementById("watchBtn").disabled = false;
+
+document.getElementById("timer").innerText = "Ad Completed";
+
+if(adCount == 10){
+
+document.getElementById("reward").innerHTML =
+'<div class="code">Reward Code: Habijul12#</div>';
+
+document.getElementById("watchBtn").style.display="none";
+
+}
+
+})
+.catch(()=>{
+
+document.getElementById("timer").innerText="Ad Failed";
+
+document.getElementById("watchBtn").disabled=false;
+
+});
+
+}
+
 </script>
 
 </body>
-</html> 
+</html>
